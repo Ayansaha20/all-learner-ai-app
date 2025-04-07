@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Box, CircularProgress } from "@mui/material";
+import { useMediaQuery, ThemeProvider, createTheme } from "@mui/material";
 import * as Assets from "../../utils/imageAudioLinks";
 import boyboxImg from "../../assets/boybox.svg";
 import girlImg from "../../assets/girl.svg";
@@ -23,6 +24,7 @@ import {
   level12,
   level15,
 } from "../../utils/levelData";
+
 import SpeechRecognition, {
   useSpeechRecognition,
 } from "react-speech-recognition";
@@ -40,6 +42,7 @@ const levelMap = {
   14: level14,
   15: level15,
 };
+const theme = createTheme();
 
 const content = {
   conversation: [
@@ -262,6 +265,9 @@ const ActOutM13 = ({
   const [finalTranscript, setFinalTranscript] = useState("");
   const [isRecording, setIsRecording] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+  const isTablet = useMediaQuery(theme.breakpoints.between("sm", "md"));
+
   const {
     transcript,
     interimTranscript,
@@ -554,17 +560,20 @@ const ActOutM13 = ({
                 <img
                   src={Assets[imageData?.images?.imageOne] || guyImg}
                   alt="Market Vendor"
-                  style={{ marginTop: "10px", height: "300px" }}
+                  style={{
+                    marginTop: isMobile || isTablet ? "11px" : "10px",
+                    height: isMobile ? "200px" : isTablet ? "200px" : "300px",
+                  }}
                 />
 
                 {/* Speech Bubble Wrapper */}
                 <div
                   style={{
                     position: "absolute",
-                    bottom: "70%",
-                    left: "130%",
+                    bottom: isMobile || isTablet ? "90%" : "93%",
+                    left: isMobile ? "80%" : isTablet ? "130%" : "130%",
                     transform: "translateX(-50%)",
-                    width: "220px",
+                    width: isMobile ? "160px" : isTablet ? "200px" : "220px",
                     height: "auto",
                   }}
                 >
@@ -585,11 +594,15 @@ const ActOutM13 = ({
                       top: "50%",
                       left: "50%",
                       transform: "translate(-50%, -50%)",
-                      fontSize: "12px",
+                      fontSize: isMobile ? "10px" : isTablet ? "11px" : "12px",
                       fontWeight: "bold",
                       textAlign: "center",
                       width: "80%",
-                      maxWidth: "180px",
+                      maxWidth: isMobile
+                        ? "140px"
+                        : isTablet
+                        ? "160px"
+                        : "180px",
                       padding: "5px",
                       wordWrap: "break-word",
                       overflow: "hidden",
@@ -606,8 +619,8 @@ const ActOutM13 = ({
                   src={Assets[imageData?.images?.imageTwo] || girlImg}
                   alt="Girl"
                   style={{
-                    height: "300px",
-                    marginRight: "100px",
+                    height: isMobile ? "200px" : isTablet ? "200px" : "300px",
+                    marginRight: isMobile || isTablet ? 0 : "100px",
                   }}
                 />
 
@@ -615,10 +628,10 @@ const ActOutM13 = ({
                 <div
                   style={{
                     position: "absolute",
-                    bottom: "70%",
-                    right: "40%",
+                    bottom: isMobile || isTablet ? "95%" : "90%",
+                    right: isMobile ? "20%" : isTablet ? "-85%" : "30%",
                     transform: "translateX(-50%)",
-                    width: "260px",
+                    width: isMobile ? "180px" : isTablet ? "220px" : "260px",
                     height: "auto",
                   }}
                 >

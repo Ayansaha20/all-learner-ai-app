@@ -1,7 +1,8 @@
 import React, { useEffect, useState, useRef } from "react";
-import { Box, CircularProgress } from "@mui/material";
+import { Box, CircularProgress, useMediaQuery } from "@mui/material";
 import listenImg2 from "../../assets/listen.png";
 import Confetti from "react-confetti";
+import { createTheme } from "@mui/material";
 import {
   level13,
   level14,
@@ -28,6 +29,7 @@ import SpeechRecognition, {
 } from "react-speech-recognition";
 import correctSound from "../../assets/correct.wav";
 import wrongSound from "../../assets/audio/wrong.wav";
+const theme = createTheme();
 
 const levelMap = {
   10: level10,
@@ -105,6 +107,8 @@ const AnouncementFlow = ({
   const [finalTranscript, setFinalTranscript] = useState("");
   const [isRecording, setIsRecording] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+  const isTablet = useMediaQuery(theme.breakpoints.between("sm", "md"));
   const {
     transcript,
     interimTranscript,
@@ -570,14 +574,14 @@ const AnouncementFlow = ({
       alignItems: "center",
       justifyContent: "center",
       alignItems: "flex-end",
-      padding: "20px 20px",
+      padding: isMobile ? "10px" : "20px",
       overflowX: "hidden",
       position: "relative",
     },
     innerContainer: {
       backgroundColor: "#fff",
       borderRadius: "10px",
-      padding: "20px",
+      padding: isMobile ? "10px" : "20px",
       width: "100%",
       position: "relative",
       maargin: "20px",
@@ -673,16 +677,17 @@ const AnouncementFlow = ({
     questionBox: {
       backgroundColor: "#f8f2ff",
       borderRadius: "20px",
-      padding: "15px",
+      padding: isMobile ? "10px" : "15px",
       fontWeight: "bold",
       //display: "relative",
       border: "1px dashed #d8b6ff",
-      fontSize: "24px",
-      width: "50%",
+      fontSize: isMobile ? "18px" : isTablet ? "20px" : "24px",
+      width: isMobile ? "90%" : isTablet ? "70%" : "50%",
+
       marginLeft: "auto",
       marginRight: "auto",
       //marginLeft: "400px",
-      marginTop: "20px",
+      marginTop: isMobile ? "50px" : "20px",
       textAlign: "center",
       display: "flex",
       alignItems: "center",

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import * as Assets from "../../utils/imageAudioLinks";
+import { useMediaQuery, ThemeProvider, createTheme } from "@mui/material";
 import { practiceSteps, getLocalData } from "../../utils/constants";
 import MainLayout from "../Layouts.jsx/MainLayout";
 import {
@@ -29,6 +30,8 @@ const levelMap = {
   14: level14,
   15: level15,
 };
+
+const theme = createTheme();
 
 const content = {
   conversation: [
@@ -90,6 +93,8 @@ const AskMoreM14 = ({
   const [showPandaText, setShowPandaText] = useState(false);
   const [showClock, setShowClock] = useState(false);
   const [imageData, setImageData] = useState({});
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+  const isTablet = useMediaQuery(theme.breakpoints.between("sm", "md"));
 
   const getPulseAnimationStyle = (color) => ({
     position: "absolute",
@@ -318,7 +323,7 @@ const AskMoreM14 = ({
                 left: "50%",
                 transform: "translate(-50%, -50%)",
                 cursor: "pointer",
-                width: "120px",
+                width: isMobile ? "80px" : isTablet ? "100px" : "120px",
               }}
               onClick={handlePlayClick}
             />
@@ -346,9 +351,9 @@ const AskMoreM14 = ({
           style={{
             position: "absolute",
             bottom: "15%",
-            left: "10%",
+            left: isMobile || isTablet ? "2%" : "10%",
             //width: "210px",
-            height: "250px",
+            height: isMobile || isTablet ? "230px" : "250px",
             zIndex: 2,
           }}
         />
@@ -358,9 +363,9 @@ const AskMoreM14 = ({
           style={{
             position: "absolute",
             bottom: "15%",
-            right: "8%",
+            right: isMobile || isTablet ? "0%" : "8%",
             //width: "210px",
-            height: "250px",
+            height: isMobile || isTablet ? "230px" : "250px",
             zIndex: 2,
           }}
         />
@@ -371,7 +376,7 @@ const AskMoreM14 = ({
               style={{
                 position: "absolute",
                 top: "19%",
-                left: "17%",
+                left: isMobile || isTablet ? "8%" : "17%",
                 width: "250px",
                 textAlign: "center",
               }}
@@ -402,7 +407,7 @@ const AskMoreM14 = ({
                 style={{
                   position: "absolute",
                   top: "18%",
-                  right: "21%",
+                  right: isMobile || isTablet ? "16%" : "21%",
                   width: "195px",
                   textAlign: "center",
                 }}
@@ -410,7 +415,7 @@ const AskMoreM14 = ({
                 <img
                   src={Assets.cloudPandaImg}
                   alt="Cloud Panda"
-                  style={{ width: "130%" }}
+                  style={{ width: isMobile || isTablet ? "120%" : "130%" }}
                 />
                 <span
                   style={{
