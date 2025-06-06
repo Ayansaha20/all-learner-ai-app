@@ -158,6 +158,15 @@ const SpeakSentenceComponent = () => {
 
           try {
             const result = await addPointer(point, milestone);
+            const awardedPoints = result?.result?.points;
+            if (awardedPoints !== 1) {
+              if (process.env.REACT_APP_IS_APP_IFRAME === "true") {
+                navigate("/");
+              } else {
+                navigate("/discover-start");
+              }
+              return;
+            }
             setPoints(result?.result?.totalLanguagePoints || 0);
           } catch (error) {
             setPoints(0);

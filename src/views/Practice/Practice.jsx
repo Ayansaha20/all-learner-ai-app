@@ -878,6 +878,15 @@ const Practice = () => {
             return;
           }
           const result = await addPointer(points, milestone);
+          const awardedPoints = result?.result?.points;
+          if (awardedPoints !== 1) {
+            if (process.env.REACT_APP_IS_APP_IFRAME === "true") {
+              navigate("/");
+            } else {
+              navigate("/discover-start");
+            }
+            return;
+          }
           setPoints(result?.result?.totalLanguagePoints || 0);
         }
 
