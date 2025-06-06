@@ -868,6 +868,15 @@ const Practice = () => {
         } else {
           let points = 1;
           let milestone = `m${level}`;
+
+          if (points !== 1) {
+            if (process.env.REACT_APP_IS_APP_IFRAME === "true") {
+              navigate("/");
+            } else {
+              navigate("/discover-start");
+            }
+            return;
+          }
           const result = await addPointer(points, milestone);
           setPoints(result?.result?.totalLanguagePoints || 0);
         }

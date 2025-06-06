@@ -108,6 +108,15 @@ export const getSetResultPractice = async ({
 
 export const updateLearnerProfile = async (lang, requestBody) => {
   try {
+    for (let key in requestBody) {
+      if (typeof requestBody[key] === "string") {
+        requestBody[key] = requestBody[key]
+          .replace(/<script.*?>.*?<\/script>/gi, "")
+          .replace(/javascript:/gi, "")
+          .trim();
+      }
+    }
+
     const response = await axios.post(
       `${API_LEARNER_AI_APP_HOST}/${config.URLS.UPDATE_LEARNER_PROFILE}/${lang}`,
       requestBody,

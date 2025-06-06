@@ -41,6 +41,15 @@ export const fetchASROutput = async (base64Data, options, setLoader) => {
       question_text: [`1. ${options.questionText}` || ""],
     };
 
+    for (let key in requestBody) {
+      if (typeof requestBody[key] === "string") {
+        requestBody[key] = requestBody[key]
+          .replace(/<script.*?>.*?<\/script>/gi, "")
+          .replace(/javascript:/gi, "")
+          .trim();
+      }
+    }
+
     const { data } = await axios.post(
       `${process.env.REACT_APP_LEARNER_AI_APP_HOST}/${config.URLS.UPDATE_LEARNER_PROFILE}/${lang}`,
       requestBody,
